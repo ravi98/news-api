@@ -1,0 +1,46 @@
+{% extends 'apiApp/base.html' %}
+{% block title %}News Page{% endblock %} 
+{% block content %}
+
+  <h1>Search Results for {{keyword}}</h1>
+  <form method="POST" action="/refresh-news/">
+    {% csrf_token %}
+    <input type="hidden" name="keyword" value="{{keyword}}"/>
+    <input type="hidden" name="from_date" value="data.0.publishedAt"/>
+    <button type="submit" name="refresh" value="True" class="float-right">Refresh</button>
+  </form>
+  {% if data %}
+<table>
+    <tr>
+        <th>source_id</th>
+        <th>source_name</th>
+        <th>author</th>
+        <th>title</th>
+        <th>description</th>
+        <th>title</th>
+        <th>Image</th>
+        <th>Published On</th>
+        <th>Content</th>
+    </tr>
+    {% for article in data %}
+    <tr style="margin-bottom: 10px">
+        <td>{{article.source_id}}</td>
+        <td>{{article.source_name}}</td>
+        <td>{{article.author}}</td>
+        <td>{{article.title}}</td>
+        <td>{{article.description}}</td>
+        <td><a href="{{article.url}}">{{article.title}}</a></td>
+        <td><img src="{{article.urlToImage}}" width="120" height="90" alt="Image"></td>
+        <td>{{article.publishedAt}}</td>
+        <td>{{article.content}}</td>
+    </tr>
+    {% endfor %}
+
+</table>
+
+  {% endif %}
+  {% if not data %}
+  <h2>No Data found for given parameters.</h2>
+  {% endif %}
+
+{% endblock %}

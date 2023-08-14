@@ -1,0 +1,10 @@
+{% extends 'apiApp/base.html' %}
+{% block title %}News Page{% endblock %} 
+{% block content %} 
+    <h1> Searches </h1>
+    <ul>
+        {% for item in data %}
+        <li><a href="{% url 'existing-view' keyword=item.keyword %}" target="_blank">{{ item.keyword }}</a></li>
+        {% endfor %}
+    </ul>
+    {% endblock %}

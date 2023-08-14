@@ -1,0 +1,35 @@
+{% extends 'apiApp/base.html' %}
+{% block title %}News Page{% endblock %} 
+{% block content %}
+        <h1> Users </h1>
+        <table class="table">
+            <tr>
+              <th>UserName</th>
+              <th>Ban</th>
+              <th>Lift Ban</th>
+            </tr>
+            {% for user in users %}
+            <tr>
+                    <td>{{user.username}}</td>
+                    <td>
+                        {% if not user.is_banned %}
+                        <form method="post">
+                            {% csrf_token %}
+                            <button type="submit" name="ban-id" value="{{user.username}}">Ban</button>
+                        </form>
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if user.is_banned %}
+                        <form method="post">
+                            {% csrf_token %}
+                            <button type="submit" name="un-ban-id" value="{{user.username}}">UnBan</button>
+                        </form>
+                        {% endif %}
+                    </td>
+                
+            </tr>
+            {% endfor %}
+            
+          </table>
+{% endblock %}

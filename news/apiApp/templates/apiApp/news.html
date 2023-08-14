@@ -1,0 +1,22 @@
+{% extends 'apiApp/base.html' %}
+{% block title %}News Page{% endblock %} 
+{% block content %} 
+<style>
+.inline-div {
+display: inline-block;
+
+}
+</style>
+
+
+<div class="container-fluid inline-div">
+<form method="POST" class="form-inline">
+{% csrf_token %}{{ form }}
+<button type="submit" class="btn btn-primary mb-2">
+    Search Articles
+</button>
+</form>
+</div>
+
+
+{% endblock %}
